@@ -88,7 +88,6 @@ export async function release (options: ReleaseOptions) {
       if (p.hasChanges && p.version !== newVersion) {
         p.version = p.pkg.version = newVersion
         console.log(pc.yellow(`${p.name} => ${newVersion}`))
-        bumpDepsVersion(p, newVersion)
       }
     }
   } else {
@@ -97,7 +96,6 @@ export async function release (options: ReleaseOptions) {
       console.log(pc.yellow(`${p.name} => ${newVersion}`))
     }
   }
-  updateDepsVersions(packages)
   await writePackages(packages)
 
   // Update root package.json version
@@ -261,31 +259,6 @@ async function buildDependencyGraph (packages: Package[]) {
   }
 }
 
-function bumpDepsVersion (p: Package, newVersion: string) {
-  for (const d of p.deps) {
-    if (d.version !== newVersion) {
-      d.version = d.pkg.version = newVersion
-      console.log(pc.yellow(`${d.name} => ${newVersion}`))
-      bumpDepsVersion(d, newVersion)
-    }
-  }
-
-  for (const parent of p.parents) {
-    if (parent.version !== newVersion) {
-      parent.version = parent.pkg.version = newVersion
-      console.log(pc.yellow(`${parent.name} => ${newVersion}`))
-      bumpDepsVersion(parent, newVersion)
-    }
-  }
-}
-
-function updateDepsVersions (packageList: Package[]) {
-  packageList.forEach((p) => {
-    updateDeps(p, 'dependencies', packageList)
-    updateDeps(p, 'peerDependencies', packageList)
-  })
-}
-
 async function writePackages (packages: Package[]) {
   return Promise.all(
     packages.map(({ pkgFile, pkg }) => {
@@ -294,23 +267,6 @@ async function writePackages (packages: Package[]) {
       })
     })
   )
-}
-
-function updateDeps (p: Package, depType: string, updatedPackages: Package[]) {
-  const deps = p.pkg[depType]
-  if (!deps) return
-  Object.keys(deps).forEach((dep) => {
-    const updatedDep = updatedPackages.find((pkg) => pkg.name === dep)
-    // avoid updated peer deps that are external like @vue/devtools-api
-    if (dep && updatedDep) {
-      console.log(
-        pc.yellow(
-          `${p.pkg.name} -> ${depType} -> ${dep}@^${updatedDep.version}`
-        )
-      )
-      deps[dep] = '^' + updatedDep.version
-    }
-  })
 }
 
 async function selectNewVersion (oldVersion: string): Promise<string> {
