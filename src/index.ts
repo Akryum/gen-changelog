@@ -215,7 +215,7 @@ async function getPackages(): Promise<Package[]> {
     pkgFiles.map(async (pkgFile) => {
       const pkg = await fs.readJSON(pkgFile)
       const folder = path.dirname(pkgFile)
-      if (!pkg.private && pkg.publishConfig?.access === 'public') {
+      if (!pkg.private && (!pkg.name.startsWith('@') || pkg.publishConfig?.access === 'public')) {
         return {
           path: folder,
           pkgFile,
