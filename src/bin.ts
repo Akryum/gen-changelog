@@ -13,11 +13,13 @@ program.command('release')
   .option('--tag <tag>', 'Specify a dist-tag for publishing')
   .option('-b,--expected-branch <branch>', 'Checks the expected branch for the publishing')
   .option('--dry-run', `Dry run (change files but don't publish nor push anything`)
+  .option('--force', 'Force publishing even if there are no changes detected')
   .action((opts) => release({
     preset: opts.preset,
     distTag: opts.tag,
     expectedBranch: opts['expected-branch'],
     dryRun: opts['dry-run'],
+    force: opts.force,
   }))
 
 program.parse(process.argv)

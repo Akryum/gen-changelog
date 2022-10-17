@@ -11,6 +11,7 @@ export interface ReleaseOptions {
   distTag?: string
   expectedBranch?: string
   dryRun?: boolean
+  force?: boolean
 }
 
 export async function release (options: ReleaseOptions) {
@@ -79,13 +80,13 @@ export async function release (options: ReleaseOptions) {
     : ['minor', 'preminor', 'patch', 'prepatch', 'prerelease'].includes(versionDiff)
   
   if (isPartialRelease) {
-    if (!packages.some(p => p.hasChanges)) {
+    if (!options.force && !packages.some(p => p.hasChanges)) {
       console.log(pc.red(`No package has changed since last release.`))
       process.exit(1)
     }
 
     for (const p of packages) {
-      if (p.hasChanges && p.version !== newVersion) {
+      if ((options.force || p.hasChanges) && p.version !== newVersion) {
         p.version = p.pkg.version = newVersion
         console.log(pc.yellow(`${p.name} => ${newVersion}`))
       }
