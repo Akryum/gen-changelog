@@ -235,11 +235,16 @@ async function getPackages(): Promise<Package[]> {
 }
 
 async function getLastTag () {
-  const { stdout: lastTag } = await execa('git', ['describe', '--tags', '--abbrev=0'], { stdio: 'pipe' })
-  return lastTag
+  try {
+    const { stdout: lastTag } = await execa('git', ['describe', '--tags', '--abbrev=0'], { stdio: 'pipe' })
+    return lastTag
+  } catch (e) {
+    return null
+  }
 }
 
 async function hasPackageChanged (folder: string, lastTag: string) {
+  if (!lastTag) return true
   const { stdout: hasChanges } = await execa(
     'git',
     [
