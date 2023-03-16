@@ -18,8 +18,8 @@
   },
   "scripts": {
     "build": "rimraf dist && rollup -c && chmod +x ./bin.js",
-    "prepublishOnly": "pnpm run build",
-    "watch": "rollup -c --watch"
+    "watch": "rollup -c --watch",
+    "release": "pnpm run build && node ./dist/bin.js release -b main"
   },
   "dependencies": {},
   "devDependencies": {
