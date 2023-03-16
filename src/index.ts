@@ -5,9 +5,9 @@ import pc from 'picocolors'
 import glob from 'fast-glob'
 import semver from 'semver'
 import prompts from 'prompts'
+import { generateChangelog } from './changelog'
 
 export interface ReleaseOptions {
-  preset?: string
   distTag?: string
   expectedBranch?: string
   dryRun?: boolean
@@ -110,15 +110,7 @@ export async function release (options: ReleaseOptions) {
 
   // Generate changelog
   console.log(pc.blue('Updating changelog...'))
-  await execa('pnpm', [
-      'exec',
-      'conventional-changelog',
-      '-i', 'CHANGELOG.md', '-s', '-r', '1',
-      '-p', options.preset,
-  ], {
-    stdio: 'inherit',
-    shell: true,
-  })
+  await generateChangelog(process.cwd(), newVersion)
   const changelogResponse = await prompts({
     type: 'confirm',
     name: 'confirm',
