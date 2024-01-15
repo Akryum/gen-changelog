@@ -12,6 +12,7 @@ export interface ReleaseOptions {
   expectedBranch?: string
   dryRun?: boolean
   force?: boolean
+  debug?: boolean
 }
 
 export async function release (options: ReleaseOptions) {
@@ -64,6 +65,10 @@ export async function release (options: ReleaseOptions) {
   // Mono-repo packages
 
   const packages = await getPackages()
+
+  if (options.debug) {
+    console.log(packages)
+  }
 
   // Select new version
   const pkgData = await fs.readJson('package.json')
