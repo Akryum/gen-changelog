@@ -213,6 +213,8 @@ async function getPackages(): Promise<Package[]> {
     ignore: ['**/node_modules/**'],
   })
 
+  pkgFiles.unshift(path.join(process.cwd(), './package.json'))
+
   const result = await Promise.all(
     pkgFiles.map(async (pkgFile) => {
       const pkg = await fs.readJSON(pkgFile)
