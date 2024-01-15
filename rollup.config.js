@@ -6,7 +6,7 @@ import json from '@rollup/plugin-json'
 import alias from '@rollup/plugin-alias'
 import path from 'pathe'
 
-import pkg from './package.json'
+import pkg from './package.json' assert { type: 'json' }
 
 const entries = [
   'src/index.ts',
@@ -34,7 +34,7 @@ const plugins = [
   json(),
   commonjs(),
   esbuild({
-    target: 'node14',
+    target: 'node20',
   }),
 ]
 
