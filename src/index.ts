@@ -70,6 +70,11 @@ export async function release (options: ReleaseOptions) {
     console.log(packages)
   }
 
+  if (!packages.length) {
+    console.log(pc.red(`No packages found.`))
+    process.exit(1)
+  }
+
   // Select new version
   const pkgData = await fs.readJson('package.json')
   const oldVersion = pkgData.version
