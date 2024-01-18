@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.5.2
+
+[compare changes](https://github.com/Akryum/sheep/compare/v0.5.1...v0.5.2)
+
+### 🩹 Fixes
+
+- Update changelogen ([165f8ce](https://github.com/Akryum/sheep/commit/165f8ce))
+- Build ([0cf8eca](https://github.com/Akryum/sheep/commit/0cf8eca))
+
+### ❤️ Contributors
+
+- Guillaume Chau ([@Akryum](http://github.com/Akryum))
+
 ## v0.5.1
 
 [compare changes](https://github.com/Akryum/sheep/compare/v0.5.0...v0.5.1)
