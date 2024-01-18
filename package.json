@@ -23,7 +23,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
@@ -37,7 +36,6 @@
     "execa": "^6.1.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
-    "node-fetch": "^3.3.1",
     "pathe": "^0.2.0",
     "picocolors": "^1.0.0",
     "prompts": "^2.4.2",

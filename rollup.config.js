@@ -3,8 +3,6 @@ import dts from 'rollup-plugin-dts'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
-import alias from '@rollup/plugin-alias'
-import path from 'pathe'
 
 import pkg from './package.json' assert { type: 'json' }
 
@@ -23,11 +21,6 @@ const external = [
 ]
 
 const plugins = [
-  alias({
-    // entries: [
-    //   { find: /node-fetch-native/, replacement: path.resolve('src/fetch.ts') },
-    // ],
-  }),
   resolve({
     preferBuiltins: true,
   }),
