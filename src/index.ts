@@ -207,7 +207,7 @@ interface Package {
 
 async function getPackages(): Promise<Package[]> {
   const lastTag = await getLastTag()
-  
+
   const pkgFiles = await glob(path.join(process.cwd(), './packages/**/package.json'), {
     onlyFiles: true,
     ignore: ['**/node_modules/**'],
