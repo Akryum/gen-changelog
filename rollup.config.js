@@ -24,9 +24,9 @@ const external = [
 
 const plugins = [
   alias({
-    entries: [
-      { find: /node-fetch-native/, replacement: path.resolve('src/fetch.ts') },
-    ],
+    // entries: [
+    //   { find: /node-fetch-native/, replacement: path.resolve('src/fetch.ts') },
+    // ],
   }),
   resolve({
     preferBuiltins: true,
